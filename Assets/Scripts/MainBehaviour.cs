@@ -25,6 +25,7 @@ public class MainBehaviour : MonoBehaviour
     public float CurrentTime;
     private int currentQuestionIndex;
     public int trueAnswer;
+    private int score;
     public int CurrentScore;
     public TextMeshProUGUI CurretnScoreText;
     public TextMeshProUGUI TimeText;
@@ -36,6 +37,15 @@ public class MainBehaviour : MonoBehaviour
     public GameObject RestartButton;
     public GameObject NextQuestionButton;
     public GameObject FinishPanel;
+    public GameObject PanelMenu;
+    public GameObject BlockPanel;
+
+    [Header("Audio")]
+    public AudioSource BackgroundSource;
+    public AudioSource AskSource;
+    public AudioSource AnswerClickSource;
+    public AudioSource TrueAnswerSource;
+    public AudioSource FalseAnswerSource;
 
 
     [Header("Answer Buttons")]
@@ -51,9 +61,10 @@ public class MainBehaviour : MonoBehaviour
 
 
     [Header("Colors")]
-    public Color defaultColor;
-    public Color trueColor;
-    public Color falseColor;
+    public Sprite defaultImage;
+    public Sprite trueImage;
+    public Sprite falseImage;
+    public Sprite hoverImage;
 
 
     public Image[] buttonBackgrounds;
@@ -80,16 +91,16 @@ public class MainBehaviour : MonoBehaviour
     public void OnClickStart()
     {
         timerActive = true;
-        StartButton.SetActive(false);
-
+        PanelMenu.SetActive(false);
         currentQuestionIndex = 1;
         SetQuestions();
+        BackgroundSource.Play();
     }
 
     public void OnClickRestart()
     {
         GameOverPanel.SetActive(false);
-
+        BackgroundSource.Play();
         ResetButtonColor();
         ResetTimer();
         SetQuestions();
@@ -101,7 +112,7 @@ public class MainBehaviour : MonoBehaviour
     {
         for (int i = 0; i < buttonBackgrounds.Length; i++)
         {
-            buttonBackgrounds[i].color = defaultColor;
+            buttonBackgrounds[i].sprite = defaultImage;
         }
     }
 
@@ -131,6 +142,7 @@ public class MainBehaviour : MonoBehaviour
         GameOverPanel.SetActive(true);
         timerActive = false;
         currentQuestionIndex = 1;
+        BackgroundSource.Stop();
     }
 
 
@@ -145,51 +157,62 @@ public class MainBehaviour : MonoBehaviour
         AnswerButtonC.text = quiz.OptionC;
         AnswerButtonD.text = quiz.OptionD;
         trueAnswer = quiz.Answer;
+
+        AskSource.Play();
     }
 
     public Quiz GetRandomQuestionIndex()
     {
         Quiz result = new Quiz();
 
-        if (currentQuestionIndex <= 3)
+        if (currentQuestionIndex <= 4)
         {
             int randomNumber = Random.Range(0, EasyQuestions.Length);
-
+            score = 10;
             result = EasyQuestions[randomNumber];
 
         }
-        else if (currentQuestionIndex >3 && currentQuestionIndex <= 8)
+        else if (currentQuestionIndex > 4 && currentQuestionIndex <= 8)
         {
             int randomNumber = Random.Range(0, NormalQuestions.Length);
-
+            score = 20;
             result = NormalQuestions[randomNumber];
         }
         else
         {
             int randomNumber = Random.Range(0, HardQuestions.Length);
-
+            score = 30;
             result = HardQuestions[randomNumber];
         }
 
         return result;
     }
 
+    private int currentOption;
     public void OnClickButtonA(int option)
     {
-        if (!timerActive)
-            return;
-
         timerActive = false;
+        BlockPanel.SetActive(true);
+        currentOption = option;
+        buttonBackgrounds[option].sprite = hoverImage;
+        StartCoroutine(AnswerCoroutine());
+        AnswerClickSource.Play();
+    }
 
-        if (option == trueAnswer)
+    IEnumerator AnswerCoroutine()
+    {
+        yield return new WaitForSeconds(5);
+        BlockPanel.SetActive(false);
+        if (currentOption == trueAnswer)
         {
-
-            buttonBackgrounds[option].color = trueColor;
+            TrueAnswerSource.Play();
+            buttonBackgrounds[currentOption].sprite = trueImage;
             NextQuestionButton.SetActive(true);
         }
         else
         {
-            buttonBackgrounds[option].color = falseColor;
+            FalseAnswerSource.Play();
+            buttonBackgrounds[currentOption].sprite = falseImage;
             GamerOver();
         }
     }
@@ -200,8 +223,14 @@ public class MainBehaviour : MonoBehaviour
         SetQuestions();
         ResetTimer();
         ResetButtonColor();
-        CurrentScore += 20;
+        CurrentScore += score;
         CurretnScoreText.text = CurrentScore.ToString();
         NextQuestionButton.SetActive(false);
+    }
+
+
+    public void SettingsOnClick()
+    {
+        PanelMenu.SetActive(true);
     }
 }
