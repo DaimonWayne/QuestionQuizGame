@@ -39,6 +39,8 @@ public class MainBehaviour : MonoBehaviour
     public GameObject FinishPanel;
     public GameObject PanelMenu;
     public GameObject BlockPanel;
+    public GameObject SettingsPanel;
+    
 
     [Header("Audio")]
     public AudioSource BackgroundSource;
@@ -74,12 +76,19 @@ public class MainBehaviour : MonoBehaviour
     public Quiz[] NormalQuestions;
     public Quiz[] HardQuestions;
 
+    [Header("Sorular Listesi")]
+    public List<int> EasyQuestionsIndex;
+    public List<int> NormalQuestionsIndex;
+    public List<int> HardQuestionsIndex;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        CurrentTime = Timer;
-        
+        CurrentTime = Timer; 
+        EasyQuestionsIndex = new List<int>();
+        NormalQuestionsIndex = new List<int>();
+        HardQuestionsIndex = new List<int>();
     }
 
     // Update is called once per frame
@@ -134,7 +143,6 @@ public class MainBehaviour : MonoBehaviour
     {
         CurrentTime = Timer;
         timerActive = true;
-
     }
 
     private void GamerOver()
@@ -170,6 +178,11 @@ public class MainBehaviour : MonoBehaviour
             int randomNumber = Random.Range(0, EasyQuestions.Length);
             score = 10;
             result = EasyQuestions[randomNumber];
+            EasyQuestionsIndex.Add(randomNumber);
+            //while (EasyQuestionsIndex.Contains(randomNumber))
+            //{
+            //    Debug.Log(randomNumber);
+            //}
 
         }
         else if (currentQuestionIndex > 4 && currentQuestionIndex <= 8)
@@ -177,12 +190,14 @@ public class MainBehaviour : MonoBehaviour
             int randomNumber = Random.Range(0, NormalQuestions.Length);
             score = 20;
             result = NormalQuestions[randomNumber];
+            NormalQuestionsIndex.Add(randomNumber);
         }
         else
         {
             int randomNumber = Random.Range(0, HardQuestions.Length);
             score = 30;
             result = HardQuestions[randomNumber];
+            HardQuestionsIndex.Add(randomNumber);
         }
 
         return result;
@@ -231,6 +246,20 @@ public class MainBehaviour : MonoBehaviour
 
     public void SettingsOnClick()
     {
+        SettingsPanel.SetActive(true);
+    }
+
+    public void SettingsPanelQuitOnClick()
+    {
+        SettingsPanel.SetActive(false);
+    }
+
+    public void MenuOpenOnClick()
+    {
+        SettingsPanel.SetActive(false);
         PanelMenu.SetActive(true);
+        CurrentTime = Timer;
+        timerActive = false;
+        BackgroundSource.Stop();
     }
 }
