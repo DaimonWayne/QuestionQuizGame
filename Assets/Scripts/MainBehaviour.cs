@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -27,7 +28,7 @@ public class MainBehaviour : MonoBehaviour
     public int trueAnswer;
     private int score;
     public int CurrentScore;
-    public TextMeshProUGUI CurretnScoreText;
+    public TextMeshProUGUI CurrentScoreText;
     public TextMeshProUGUI TimeText;
     public TextMeshProUGUI FinalButton;
     public TMP_InputField QuestionsText;
@@ -40,6 +41,12 @@ public class MainBehaviour : MonoBehaviour
     public GameObject PanelMenu;
     public GameObject BlockPanel;
     public GameObject SettingsPanel;
+    private int randomNumber;
+    public Image TimerBar;
+    public Button DoubleAnswer;
+    public Button Fifty_Fifty;
+    private bool doubleAnswer = false;
+    private bool fiftyFifty = false;
     
 
     [Header("Audio")]
@@ -51,10 +58,11 @@ public class MainBehaviour : MonoBehaviour
 
 
     [Header("Answer Buttons")]
-    public GameObject ButtonA;
-    public GameObject ButtonB;
-    public GameObject ButtonC;
-    public GameObject ButtonD;
+    public Button ButtonA;
+    public Button ButtonB;
+    public Button ButtonC;
+    public Button ButtonD;
+    public GameObject[] AnswerButtons;
     [Header("Answer Text")]
     public TextMeshProUGUI AnswerButtonA;
     public TextMeshProUGUI AnswerButtonB;
@@ -67,6 +75,14 @@ public class MainBehaviour : MonoBehaviour
     public Sprite trueImage;
     public Sprite falseImage;
     public Sprite hoverImage;
+
+    [Header("Jokers")]
+    public Sprite DoubleAnswerhover;
+    public Sprite DoubleAnswerdisapled;
+    public Sprite DoubleAnswerSprite;
+    public Sprite Fifty_Fiftyhover;
+    public Sprite Fifty_Fiftydisapled;
+    public Sprite Fifty_FitySprite;
 
 
     public Image[] buttonBackgrounds;
@@ -85,7 +101,7 @@ public class MainBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CurrentTime = Timer; 
+        CurrentTime = Timer;
         EasyQuestionsIndex = new List<int>();
         NormalQuestionsIndex = new List<int>();
         HardQuestionsIndex = new List<int>();
@@ -101,9 +117,12 @@ public class MainBehaviour : MonoBehaviour
     {
         timerActive = true;
         PanelMenu.SetActive(false);
-        currentQuestionIndex = 1;
+        currentQuestionIndex = 0;
         SetQuestions();
         BackgroundSource.Play();
+        ResetInteractable();
+        DoubleAnswer.image.sprite = DoubleAnswerSprite;
+        Fifty_Fifty.image.sprite = Fifty_FitySprite;
     }
 
     public void OnClickRestart()
@@ -113,8 +132,15 @@ public class MainBehaviour : MonoBehaviour
         ResetButtonColor();
         ResetTimer();
         SetQuestions();
-
-        
+        EasyQuestionsIndex.Clear();
+        NormalQuestionsIndex.Clear();
+        HardQuestionsIndex.Clear();
+        EasyQuestionsIndex.Add(randomNumber);
+        CurrentScore = 0;
+        CurrentScoreText.text = CurrentScore.ToString();
+        DoubleAnswer.image.sprite = DoubleAnswerSprite;
+        Fifty_Fifty.image.sprite = Fifty_FitySprite;
+        ResetInteractable();
     }
 
     private void ResetButtonColor()
@@ -122,6 +148,7 @@ public class MainBehaviour : MonoBehaviour
         for (int i = 0; i < buttonBackgrounds.Length; i++)
         {
             buttonBackgrounds[i].sprite = defaultImage;
+            buttonBackgrounds[i].color = Color.white;
         }
     }
 
@@ -130,6 +157,7 @@ public class MainBehaviour : MonoBehaviour
         if (CurrentTime > 0f)
         {
             CurrentTime -= Time.deltaTime;
+            TimerBar.fillAmount = CurrentTime / Timer;
             TimeText.text = CurrentTime.ToString("F0");
         }
 
@@ -153,7 +181,7 @@ public class MainBehaviour : MonoBehaviour
         BackgroundSource.Stop();
     }
 
-
+    
     private void SetQuestions()
     {
 
@@ -165,7 +193,7 @@ public class MainBehaviour : MonoBehaviour
         AnswerButtonC.text = quiz.OptionC;
         AnswerButtonD.text = quiz.OptionD;
         trueAnswer = quiz.Answer;
-
+        
         AskSource.Play();
     }
 
@@ -175,29 +203,57 @@ public class MainBehaviour : MonoBehaviour
 
         if (currentQuestionIndex <= 4)
         {
-            int randomNumber = Random.Range(0, EasyQuestions.Length);
-            score = 10;
-            result = EasyQuestions[randomNumber];
-            EasyQuestionsIndex.Add(randomNumber);
-            //while (EasyQuestionsIndex.Contains(randomNumber))
-            //{
-            //    Debug.Log(randomNumber);
-            //}
-
+            randomNumber = Random.Range(0, EasyQuestions.Length);
+            score = 10;    
+            
+            if (!EasyQuestionsIndex.Contains(randomNumber))
+            {
+                EasyQuestionsIndex.Add(randomNumber);
+                result = EasyQuestions[randomNumber];
+            }
+            else
+            {
+                while (EasyQuestionsIndex.Contains(randomNumber))
+                {
+                    randomNumber = Random.Range(0, EasyQuestions.Length);
+                }
+            }
         }
         else if (currentQuestionIndex > 4 && currentQuestionIndex <= 8)
         {
             int randomNumber = Random.Range(0, NormalQuestions.Length);
             score = 20;
-            result = NormalQuestions[randomNumber];
-            NormalQuestionsIndex.Add(randomNumber);
+
+            if (!NormalQuestionsIndex.Contains(randomNumber))
+            {
+                NormalQuestionsIndex.Add(randomNumber);
+                result = NormalQuestions[randomNumber];
+            }
+            else
+            {
+                while (NormalQuestionsIndex.Contains(randomNumber))
+                {
+                    randomNumber = Random.Range(0, NormalQuestions.Length);
+                }
+            }
         }
         else
         {
             int randomNumber = Random.Range(0, HardQuestions.Length);
-            score = 30;
-            result = HardQuestions[randomNumber];
-            HardQuestionsIndex.Add(randomNumber);
+            score = 30;  
+
+            if (!HardQuestionsIndex.Contains(randomNumber))
+            {
+                HardQuestionsIndex.Add(randomNumber);
+                result = HardQuestions[randomNumber];
+            }
+            else
+            {
+                while (HardQuestionsIndex.Contains(randomNumber))
+                {
+                    randomNumber = Random.Range(0, HardQuestions.Length);
+                }
+            }
         }
 
         return result;
@@ -223,6 +279,15 @@ public class MainBehaviour : MonoBehaviour
             TrueAnswerSource.Play();
             buttonBackgrounds[currentOption].sprite = trueImage;
             NextQuestionButton.SetActive(true);
+            if (doubleAnswer)
+            {
+                DoubleAnswer.image.sprite = DoubleAnswerdisapled;
+            }
+            else if (fiftyFifty)
+            {
+                Fifty_Fifty.image.sprite = Fifty_Fiftydisapled;
+            }
+            
         }
         else
         {
@@ -232,6 +297,29 @@ public class MainBehaviour : MonoBehaviour
         }
     }
 
+    public void DoubleAnswerOnClick()
+    {
+        DoubleAnswer.image.sprite = DoubleAnswerhover;
+        doubleAnswer = true;
+    }
+
+    public void FiftyFityOnClick()
+    {
+        Fifty_Fifty.image.sprite = Fifty_Fiftyhover;
+        fiftyFifty = true;
+
+        ButtonA.interactable = false;
+        buttonBackgrounds[0].color = Color.gray;
+    }
+
+    void ResetInteractable()
+    {
+        ButtonA.interactable = true;
+        ButtonB.interactable = true;
+        ButtonC.interactable = true;
+        ButtonD.interactable = true;
+    }
+
     public void NextQuestionOnClick()
     {
         currentQuestionIndex++;
@@ -239,8 +327,9 @@ public class MainBehaviour : MonoBehaviour
         ResetTimer();
         ResetButtonColor();
         CurrentScore += score;
-        CurretnScoreText.text = CurrentScore.ToString();
+        CurrentScoreText.text = CurrentScore.ToString();
         NextQuestionButton.SetActive(false);
+        ResetInteractable();
     }
 
 
@@ -261,5 +350,16 @@ public class MainBehaviour : MonoBehaviour
         CurrentTime = Timer;
         timerActive = false;
         BackgroundSource.Stop();
+        EasyQuestionsIndex.Clear();
+        NormalQuestionsIndex.Clear();
+        HardQuestionsIndex.Clear();
+        ResetButtonColor();
+        CurrentScore = 0;
+        CurrentScoreText.text = CurrentScore.ToString();
+    }
+
+    public void QuitApplication()
+    {
+        Application.Quit();
     }
 }
