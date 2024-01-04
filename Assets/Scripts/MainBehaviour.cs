@@ -140,6 +140,8 @@ public class MainBehaviour : MonoBehaviour
         CurrentScoreText.text = CurrentScore.ToString();
         DoubleAnswer.image.sprite = DoubleAnswerSprite;
         Fifty_Fifty.image.sprite = Fifty_FitySprite;
+        Fifty_Fifty.interactable = true;
+        fiftyFifty = false;
         ResetInteractable();
     }
 
@@ -184,7 +186,6 @@ public class MainBehaviour : MonoBehaviour
     
     private void SetQuestions()
     {
-
         Quiz quiz = GetRandomQuestionIndex();
 
         QuestionsText.text = quiz.Question;
@@ -307,9 +308,48 @@ public class MainBehaviour : MonoBehaviour
     {
         Fifty_Fifty.image.sprite = Fifty_Fiftyhover;
         fiftyFifty = true;
+        Fifty_Fifty.interactable = false;
+        if (trueAnswer == 0)
+        {
+            AnswerButtonB.text = "";
+            ButtonB.interactable = false;
+            buttonBackgrounds[1].color = Color.gray;
+            AnswerButtonD.text = "";
+            ButtonD.interactable = false;
+            buttonBackgrounds[3].color = Color.gray;
+        }
+        else if (trueAnswer == 1)
+        {
+            AnswerButtonA.text = "";
+            ButtonA.interactable = false;
+            buttonBackgrounds[0].color = Color.gray;
+            AnswerButtonD.text = "";
+            ButtonD.interactable = false;
+            buttonBackgrounds[3].color = Color.gray;
+        }
+        else if (trueAnswer == 2)
+        {
+            AnswerButtonB.text = "";
+            ButtonB.interactable = false;
+            buttonBackgrounds[1].color = Color.gray;
+            AnswerButtonA.text = "";
+            ButtonA.interactable = false;
+            buttonBackgrounds[0].color = Color.gray;
+        }
+        else if(trueAnswer == 3)
+        {
+            AnswerButtonA.text = "";
+            ButtonA.interactable = false;
+            buttonBackgrounds[0].color = Color.gray;
+            AnswerButtonC.text = "";
+            ButtonC.interactable = false;
+            buttonBackgrounds[2].color = Color.gray;
+        }
+        else
+        {
+            Debug.Log("Hatalý Cevap indeksi");
+        }
 
-        ButtonA.interactable = false;
-        buttonBackgrounds[0].color = Color.gray;
     }
 
     void ResetInteractable()
@@ -356,6 +396,8 @@ public class MainBehaviour : MonoBehaviour
         ResetButtonColor();
         CurrentScore = 0;
         CurrentScoreText.text = CurrentScore.ToString();
+        Fifty_Fifty.interactable = true;
+        fiftyFifty = false;
     }
 
     public void QuitApplication()
