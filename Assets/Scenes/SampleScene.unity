@@ -5183,13 +5183,54 @@ MonoBehaviour:
     OptionC: C- Kankan
     OptionD: D- Janjan
     Answer: 0
-  - Question: "Hangisi, tavla oynarken, zar atan ki\u015Filerin s\xF6yledi\u011Fi
-      bir s\xF6zd\xFCr?"
-    OptionA: "A- Haydi ko\xE7um ilik!"
-    OptionB: B- Haydi yavrum kemik!
-    OptionC: "C- Haydi can\u0131m pirzola!"
-    OptionD: 'D- Haydi dostum biftek! '
-    Answer: 1
+  - Question: "\"Mazeretim var, asabiyim ben\" diyen biri nas\u0131l biri oldu\u011Funu
+      belirtmi\u015F olur?"
+    OptionA: A- Sinirli
+    OptionB: B- Sevecen
+    OptionC: "C- Yumu\u015Fak huylu"
+    OptionD: "D- \u0130yimser"
+    Answer: 0
+  - Question: "Hafif so\u011Fuk alg\u0131nl\u0131\u011F\u0131 gibi k\xFC\xE7\xFCk
+      rahats\u0131zl\u0131klardan muzdarip olanlara verilmesi tavsiye edilen genellikle
+      hangisi olur?"
+    OptionA: A- Bayat yemekler ve dertler
+    OptionB: "B- A\u011F\u0131r tatl\u0131lar ve s\u0131k\u0131nt\u0131lar"
+    OptionC: "C- Yapay g\u0131dalar ve \xFCz\xFCnt\xFCler"
+    OptionD: D- Vitaminler ve moraller
+    Answer: 3
+  - Question: "\xDCnl\xFC hikayede, Leyla'ya kavu\u015Famayan Mecnun ne yapar?"
+    OptionA: "A- S\u0131k\u0131nt\u0131s\u0131ndan al\u0131\u015Fveri\u015Fe gider"
+    OptionB: "B- \xDCz\xFCnt\xFCs\xFCnden tatl\u0131 krizine girer"
+    OptionC: "C- Kederinden nail art salonu a\xE7ar"
+    OptionD: "D- A\u015Fk\u0131ndan \xE7\xF6llere d\xFC\u015Fer"
+    Answer: 3
+  - Question: "Hangisi k\xFC\xE7\xFCk \xE7ocuklar\u0131n \"B\xFCy\xFCy\xFCnce ne
+      olacaks\u0131n?\" sorusuna en s\u0131k verdikleri cevaplardan biridir?"
+    OptionA: "A- Ki\u015Fisel mali m\xFC\u015Favir"
+    OptionB: "B- Konvey\xF6r operat\xF6r\xFC"
+    OptionC: "C- Nanoteknoloji m\xFChendisi"
+    OptionD: D- Astronot
+    Answer: 3
+  - Question: "\"Kayseri, Sinop, Yakakent, Bodrum, Bo\u015Fnak, her t\xFCrl\xFCs\xFCne
+      bay\u0131l\u0131r\u0131m\" diyen biri muhtemelen hangisinden bahsediyordur?"
+    OptionA: A- Creme brulee
+    OptionB: B- Dana carpaccio
+    OptionC: "C- Mant\u0131"
+    OptionD: D- Cordon blue
+    Answer: 2
+  - Question: '"Yelkenli"siyle seyahat eden biri muhtemelen hangisindedir?'
+    OptionA: A- Buz pistinde
+    OptionB: "B- Uzay Bo\u015Flu\u011Funda"
+    OptionC: C- Stratosferde
+    OptionD: D- Denizde
+    Answer: 3
+  - Question: "\"D\xFC\u011F\xFCnevi gibi\" bezetmesi yap\u0131lan yerde muhtemelen
+      nas\u0131l bir kalabal\u0131k vard\u0131r?"
+    OptionA: A- Negatif ve mutsuz
+    OptionB: "B- Uykulu ve surats\u0131z"
+    OptionC: C- Huzursuz ve sinirli
+    OptionD: "D- Sevin\xE7li ve tela\u015Fl\u0131"
+    Answer: 3
   NormalQuestions:
   - Question: "\"Hald\u0131r hald\u0131r\" ne anlama gelir?"
     OptionA: "A- H\u0131zla ve ses \xE7\u0131kararak"
@@ -5439,6 +5480,44 @@ MonoBehaviour:
     OptionC: C- Charlie Brown
     OptionD: D- Morty Smith
     Answer: 0
+  - Question: "Her g\xFCn 50 kilometre yol giden ve yola \xE7\u0131kt\u0131ktan 5
+      g\xFCn sonra ne kadar yolu kald\u0131\u011F\u0131 soruldu\u011Funda \"Tam ortas\u0131nday\u0131m\"
+      diyen birinin yolu ba\u015F\u0131ndan sonuna toplam ka\xE7 kilometredir?"
+    OptionA: A- 200
+    OptionB: B- 300
+    OptionC: C- 500
+    OptionD: D- 1200
+    Answer: 2
+  - Question: "G\xFCneybat\u0131dan esen ve ba\u015F a\u011Fr\u0131s\u0131 yapt\u0131\u011F\u0131na
+      inan\u0131lan r\xFCzgarla, kuzeydo\u011Fudan esen so\u011Fuk r\xFCzgar s\u0131ras\u0131yla
+      hangileridir?"
+    OptionA: "A- Ke\u015Fi\u015Fleme ve kara yel"
+    OptionB: "B- Y\u0131ld\u0131z ve g\xFCn bat\u0131s\u0131"
+    OptionC: C- Lodos ve poyraz
+    OptionD: "D- G\xFCn do\u011Fusu ve muson"
+    Answer: 2
+  - Question: "Hangi ikisi 15. y\xFCzy\u0131l\u0131n ikinci yar\u0131s\u0131nda do\u011Fmu\u015F
+      ve 16 y\xFCzy\u0131l\u0131n ilk yar\u0131s\u0131nda \xF6lm\xFC\u015Ft\xFCr?"
+    OptionA: A- Shakespeare ve Goethe
+    OptionB: B- Luther ve Machiavelli
+    OptionC: C- Dante ve Nietzsche
+    OptionD: D- Kant ve Descartes
+    Answer: 1
+  - Question: "He-Man'in yak\u0131n dostu olan \"ye\u015Fil kaplan\"\u0131n, At\u0131lgan'a
+      d\xF6n\xFC\u015Fmeden \xF6nceki ad\u0131 nedir?"
+    OptionA: A- Titrek
+    OptionB: B- Miskin
+    OptionC: C- Pamuk
+    OptionD: "D- Minno\u015F"
+    Answer: 0
+  - Question: "\"Melekler ve \u015Eeytanlar\", \"Da Vinci \u015Eifresi\", \"Kay\u0131p
+      Sembol\", \"Cehennem\" ve \"Ba\u015Flang\u0131\xE7\" adl\u0131 romanlardan
+      olu\u015Fan \"Robert Langdon Serisi\"nin yazar\u0131 kimdir?"
+    OptionA: A- Dan Brown
+    OptionB: B- Ernest Hemingway
+    OptionC: C- Isaac Asimov
+    OptionD: D- Mark Twain
+    Answer: 0
   HardQuestions:
   - Question: "Genetik olarak normal ve sa\u011Fl\u0131kl\u0131 bir insanda hangisinden
       toplamda 24 tane vard\u0131r?"
@@ -5489,6 +5568,51 @@ MonoBehaviour:
     OptionC: "C- Bir Konu\u015Fabilse..."
     OptionD: "D- K\u0131\u015F Uykusu"
     Answer: 0
+  - Question: "Eserlerinde \"I bless the rains down in Africa\" ve \"B\xFCt\xFCn
+      kara par\xE7alar\u0131nda / Afrika dahil\" ifadeleri ge\xE7en m\xFCzik grubu
+      ve \u015Fair s\u0131ras\u0131yla hangileridir?"
+    OptionA: "A- TOTO ve Cemal S\xFCreya"
+    OptionB: B- U2 ve Edip Cansever
+    OptionC: C- AC/DC ve Turgut Uyar
+    OptionD: "D- The Who ve \xD6zdemir Asaf"
+    Answer: 0
+  - Question: "Jimi Hendrix son konserini, \xF6l\xFCm\xFCnden 12 g\xFCn \xF6nce nerede
+      vermi\u015Ftir?"
+    OptionA: "A- Bat\u0131 Almanya"
+    OptionB: B- Fransa
+    OptionC: C- ABD
+    OptionD: D- Kanada
+    Answer: 0
+  - Question: "Baz\u0131 yolcu u\xE7aklar\u0131n\u0131n kap\u0131lar\u0131n\u0131n
+      u\xE7u\u015F halindeyken i\xE7eriden a\xE7\u0131lmamas\u0131n\u0131 sa\u011Flayan
+      \"Cooper kilidi\"ne ad\u0131 verilen Dan Cooper kimin takma ad\u0131d\u0131r?"
+    OptionA: "A- U\xE7aktan d\xFC\u015F\xFCp kaybolan bir yolcunun"
+    OptionB: "B- Kap\u0131y\u0131 ve kilidi dizayn eden m\xFChendisin"
+    OptionC: "C- U\xE7aktan para\u015F\xFCtle atlayan bir fidyecinin"
+    OptionD: "D- Hava almak i\xE7in ka\u011F\u0131y\u0131 a\xE7an g\xF6revlinin"
+    Answer: 2
+  - Question: "Be\u015Fikta\u015F, Fenerbah\xE7e ve Galatasaray'dan sonra 1959'dan
+      g\xFCn\xFCm\xFCze S\xFCper Lig'de en fazla yer alm\u0131\u015F tak\u0131m hangisidir?"
+    OptionA: A- Altay
+    OptionB: "B- Ankarag\xFCc\xFC"
+    OptionC: C- Bursaspor
+    OptionD: "D- Gen\xE7lerbirli\u011Fi"
+    Answer: 1
+  - Question: "Ahmet Muhip D\u0131ranas'\u0131n ayn\u0131 adl\u0131 \u015Fiirinden
+      ilham al\u0131narak beyaz perdeye uyarlanan 1984 yap\u0131m\u0131 \"Fahriye
+      Abla\" adl\u0131 film hangi y\xF6netmenin y\xF6netti\u011Fi ilk filmdir?"
+    OptionA: A- Yavuz Turgul
+    OptionB: "B- At\u0131f Y\u0131lmaz"
+    OptionC: "C- Memduh \xDCn"
+    OptionD: D- Kartal Tibet
+    Answer: 0
+  - Question: "\u0130ki d\xFCnya sava\u015F\u0131nda da kaybeden ittifakta yer alan
+      hangisidir?"
+    OptionA: A- Japonya
+    OptionB: B- Fransa
+    OptionC: "C- \u0130talya"
+    OptionD: D- Almanya
+    Answer: 3
   EasyQuestionsIndex: 
   NormalQuestionsIndex: 
   HardQuestionsIndex: 

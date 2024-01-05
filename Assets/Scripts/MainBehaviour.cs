@@ -21,7 +21,7 @@ public class Quiz
 
 public class MainBehaviour : MonoBehaviour
 {
-    [Range(0f, 45f)] 
+    [Range(0f, 45f)]
     public float Timer;
     public float CurrentTime;
     private int currentQuestionIndex;
@@ -47,7 +47,7 @@ public class MainBehaviour : MonoBehaviour
     public Button Fifty_Fifty;
     private bool doubleAnswer = false;
     private bool fiftyFifty = false;
-    
+
 
     [Header("Audio")]
     public AudioSource BackgroundSource;
@@ -139,6 +139,7 @@ public class MainBehaviour : MonoBehaviour
         CurrentScore = 0;
         CurrentScoreText.text = CurrentScore.ToString();
         DoubleAnswer.image.sprite = DoubleAnswerSprite;
+        DoubleAnswer.interactable = true;
         Fifty_Fifty.image.sprite = Fifty_FitySprite;
         Fifty_Fifty.interactable = true;
         fiftyFifty = false;
@@ -183,7 +184,7 @@ public class MainBehaviour : MonoBehaviour
         BackgroundSource.Stop();
     }
 
-    
+
     private void SetQuestions()
     {
         Quiz quiz = GetRandomQuestionIndex();
@@ -194,7 +195,7 @@ public class MainBehaviour : MonoBehaviour
         AnswerButtonC.text = quiz.OptionC;
         AnswerButtonD.text = quiz.OptionD;
         trueAnswer = quiz.Answer;
-        
+
         AskSource.Play();
     }
 
@@ -205,8 +206,8 @@ public class MainBehaviour : MonoBehaviour
         if (currentQuestionIndex <= 4)
         {
             randomNumber = Random.Range(0, EasyQuestions.Length);
-            score = 10;    
-            
+            score = 10;
+
             if (!EasyQuestionsIndex.Contains(randomNumber))
             {
                 EasyQuestionsIndex.Add(randomNumber);
@@ -241,7 +242,7 @@ public class MainBehaviour : MonoBehaviour
         else
         {
             int randomNumber = Random.Range(0, HardQuestions.Length);
-            score = 30;  
+            score = 30;
 
             if (!HardQuestionsIndex.Contains(randomNumber))
             {
@@ -264,11 +265,18 @@ public class MainBehaviour : MonoBehaviour
     public void OnClickButtonA(int option)
     {
         timerActive = false;
-        BlockPanel.SetActive(true);
         currentOption = option;
         buttonBackgrounds[option].sprite = hoverImage;
         StartCoroutine(AnswerCoroutine());
         AnswerClickSource.Play();
+        if (doubleAnswer == true)
+        {
+            BlockPanel.SetActive(false);
+        }
+        else
+        {
+            BlockPanel.SetActive(true);
+        }
     }
 
     IEnumerator AnswerCoroutine()
@@ -283,18 +291,32 @@ public class MainBehaviour : MonoBehaviour
             if (doubleAnswer)
             {
                 DoubleAnswer.image.sprite = DoubleAnswerdisapled;
+                DoubleAnswer.interactable = false;
             }
             else if (fiftyFifty)
             {
                 Fifty_Fifty.image.sprite = Fifty_Fiftydisapled;
             }
-            
         }
+
         else
         {
-            FalseAnswerSource.Play();
-            buttonBackgrounds[currentOption].sprite = falseImage;
-            GamerOver();
+            if (doubleAnswer)
+            {
+                buttonBackgrounds[currentOption].sprite = falseImage;
+                FalseAnswerSource.Play();
+                timerActive = true;
+                DoubleAnswer.interactable = false;
+                DoubleAnswer.image.sprite = DoubleAnswerdisapled;
+                yield return new WaitForSeconds(5);
+                doubleAnswer = false; 
+            }
+            else 
+            {
+                FalseAnswerSource.Play();
+                buttonBackgrounds[currentOption].sprite = falseImage;
+                GamerOver();
+            }
         }
     }
 
@@ -336,7 +358,7 @@ public class MainBehaviour : MonoBehaviour
             ButtonA.interactable = false;
             buttonBackgrounds[0].color = Color.gray;
         }
-        else if(trueAnswer == 3)
+        else if (trueAnswer == 3)
         {
             AnswerButtonA.text = "";
             ButtonA.interactable = false;
@@ -396,6 +418,7 @@ public class MainBehaviour : MonoBehaviour
         ResetButtonColor();
         CurrentScore = 0;
         CurrentScoreText.text = CurrentScore.ToString();
+        DoubleAnswer.interactable = true;
         Fifty_Fifty.interactable = true;
         fiftyFifty = false;
     }
